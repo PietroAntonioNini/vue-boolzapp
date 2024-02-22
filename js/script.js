@@ -173,13 +173,29 @@ createApp({
         }
     },
     methods: {
+        //funzione per selezionare la chat attiva
         selectChat(index) {
             this.activeChat = index;
         },
 
+        //funzione per prendere solo l'ora escludendo data e secondi dall'array
         extractTime(dateString) {
             // Estrae le prime 5 lettere (es. "15:30")
             return dateString.substring(11, 16);
+        },
+
+        //funzione per inserire l'ultimo mesaggio nella lista delle chat
+        getLastMessage(user) {
+            //recupero i messaggi dell'utente
+            const messages = user.messages;
+        
+            //se non ci sono messaggi inserisco una stringa vuota
+            if (!messages || messages.length === 0) {
+              return "";
+            }
+        
+            //restituisco l'ultimo messaggio della chat
+            return messages[messages.length - 1].message;
         },
 
     },
