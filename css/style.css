@@ -5,26 +5,60 @@
 }
 /* reset */
 
+.icons {
+    display: flex;
+    gap: 15px;
+
+    cursor: pointer;
+
+    font-size: 20px;
+    color: #B1B1B1;
+}
+
+img {
+    width: 50px;
+    margin-right: 5px;
+
+    border-radius: 25px;
+}
+
+/* elementi comuni sopra */
+
 body {
     display: flex;
     justify-content: center;
 
     margin: 50px 0;
     font-family: sans-serif;
+    background: #DADBD4;
 
-    background-color: #B1B1B1;
+    overflow: hidden;
+}
+
+body::after {
+    content: ""; /* Nasconde il contenuto */
+    position: absolute; /* Posizione assoluta rispetto al body */
+    top: 0; /* Parte superiore del body */
+    left: 0; /* Parte sinistra del body */
+    width: 100%; /* Copre tutta la larghezza del body */
+    height: 20%; /* Altezza pari al 30% */
+    background: #009688; /* Colore di sfondo della parte superiore */
 }
   
 .container {
     display: flex;
-
     width: 1200px;
+    height: 780px;
+    z-index: 1;
 }
 
 /* sidebar */
 
 .chat-sidebar {
+    height: 100%;
     flex-basis: 33.33%;
+    border-right: 0.5px solid #B1B1B1;
+    background-color: #fff;
 }
 
 .side-header {
@@ -46,23 +80,8 @@ body {
 .top-head .avatar{
     display: flex;
     align-items: center;
-}
 
-.top-head .avatar img {
-    width: 50px;
-    margin-right: 5px;
-
-    border-radius: 25px;
-}
-
-.top-head .icons {
-    display: flex;
-    gap: 15px;
-
-    cursor: pointer;
-
-    font-size: 20px;
-    color: #B1B1B1;
+    cursor: default;
 }
 
 /* parte in mezzo della sidebar (alert) */
@@ -90,6 +109,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
+
+    cursor: default;
 
     font-size: 14px;
 }
@@ -126,6 +147,8 @@ body {
     align-items: center;
     padding: 10px;
 
+    cursor: pointer;
+
     border-top: 0.5px solid #B1B1B1;
 }
 
@@ -146,13 +169,57 @@ body {
     color: #B1B1B1;
 }
 
-
-
-
+/* parte a destra, chat vera e propria */
 
 .chat-body {
-    border: 1px solid green;
-    /* test */
-
+    height: 100%;
     flex-grow: 1;
+    position: relative;
+}
+
+.top-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #EAEAEA;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    cursor: default;
+}
+
+.mid-body {
+    height: 100%;
+    background-image: url(../img/mine.jpg);
+}
+
+.end-body {
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+
+    padding: 10px 0;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-color: #F3EEEA;
+}
+
+.end-body i {
+    font-size: 20px;
+    color: #6A7376;
+
+    cursor: pointer;
+}
+
+.end-body input {
+    max-width: 80%;
+    height: 50px;
 }
