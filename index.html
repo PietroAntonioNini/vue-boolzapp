@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     
     <div id="app" class="container">
 
@@ -48,6 +50,20 @@
                         <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Username" aria-describedby="addon-wrapping">
                     </div>
                 </div>
+            </div>
+
+            <div class="side-body">
+                <ul>
+                    <li v-for="user in contacts">
+                        <img :src="user.avatar" :alt="user.name">
+
+                        <div class="chat-info">
+                            <span> {{ user.name }}</span>
+                            <span> Ultimo messaggio ricevuto</span>
+                        </div>
+
+                    </li>
+                </ul>
             </div>
         </div>
 
