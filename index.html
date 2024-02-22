@@ -54,7 +54,7 @@
 
             <div class="side-body">
                 <ul>
-                    <li v-for="user in contacts">
+                    <li v-for="(user, index) in contacts" @click="selectChat(index)" :class="index == activeChat ? `active` : `` ">
                         <img :src="user.avatar" :alt="user.name">
 
                         <div class="chat-info">
@@ -67,11 +67,13 @@
             </div>
         </div>
 
-        <div class="chat-body">
+        <div class="chat-body" v-for="(user, index) in contacts" v-show="index == activeChat">
             <div class="top-body">
                 <div class="avatar">
-                    <img src="./img/avatar_io.jpg" alt="Avatar Sonia">
-                    <span class="chat-username">Sofia</span>
+                    <img 
+                        :src="user.avatar" 
+                        :alt="user.name">
+                    <span class="chat-username"> {{ user.name }}</span>
                 </div>
 
                 <div class="icons">
@@ -82,7 +84,9 @@
             </div>
 
             <div class="mid-body">
-
+                <div class="message" v-for="(user, index) in contacts" v-show="index == activeChat">
+                    <span></span>
+                </div>
             </div>
 
             <div class="end-body">
