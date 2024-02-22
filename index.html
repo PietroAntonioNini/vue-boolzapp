@@ -72,8 +72,12 @@
                 <div class="avatar">
                     <img 
                         :src="user.avatar" 
-                        :alt="user.name">
-                    <span class="chat-username"> {{ user.name }}</span>
+                        :alt="user.name"
+                    >
+                    <div class="chat-info">
+                        <span class="chat-username"> {{ user.name }}</span>
+                        <span class="last-access"> Ultimo accesso {{ this.extractTime(contacts[activeChat].messages[contacts[activeChat].messages.length - 1].date) }} </span>
+                    </div>
                 </div>
 
                 <div class="icons">
@@ -85,9 +89,12 @@
 
             <div class="mid-body">
                 <div class="message">
-                    <span v-for="(message, index) in contacts[activeChat].messages">
-                        {{ message.message }}
-                    </span>
+                    <div v-for="(message, index) in contacts[activeChat].messages">
+                        <span :class="{ 'message-sent': message.status === 'sent', 'message-received': message.status === 'received'}">
+                            {{ message.message }}
+                            <span class="time">{{ this.extractTime(message.date) }}</span>
+                        </span>
+                    </div>
                 </div>
             </div>
 

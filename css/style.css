@@ -176,42 +176,98 @@ body::after {
 /* parte a destra, chat vera e propria */
 
 .chat-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100%;
     flex-grow: 1;
-    position: relative;
 }
+
+
+/* header con nome dell'utente con cui conversi */
 
 .top-body {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    background-color: #EAEAEA;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-
+    height: 70px;
+    overflow: hidden;
+    
     cursor: default;
+
+    background-color: #EAEAEA;
 }
 
+.top-body .avatar {
+    display: flex;
+}
+
+
+/* testo della chat */
+
 .mid-body {
-    height: 100%;
+    height: calc(100% - 140px);
+    overflow-y: auto;
+    padding: 40px 80px;
+
     background-image: url(../img/mine.jpg);
 }
 
+.mid-body .message div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+/* stile dei messaggi mandati da noi */
+.mid-body .message .message-sent {
+    min-width: 270px;
+    max-width: 300px;
+    align-self: flex-end;
+    position: relative;
+
+    margin-bottom: 10px;
+    padding: 10px 40px 10px 10px ;
+
+    border-radius: 8px;
+    background-color: #D5F9BA;
+}
+
+/* stile dei messaggi ricevuti*/
+.mid-body .message .message-received {
+    min-width: 270px;
+    max-width: 300px;
+    align-self: flex-start;
+    position: relative;
+
+    margin-bottom: 10px;
+    padding: 10px 40px 10px 10px ;
+
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+
+/* ora dei messaggi */
+.time {
+    position: absolute;
+    bottom: 0;
+    right: 6px;
+
+    font-size: 8px;
+    color: #B1B1B1;
+}
+
+
+/* footer con l'inserimento del messaggio nella chat, le emoticon e il pulsante registra invia */
 .end-body {
     display: flex;
     align-items: center;
     justify-content:space-evenly;
+    height: 70px;
+    overflow: hidden;
 
     padding: 10px 0;
-
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
 
     background-color: #F3EEEA;
 }

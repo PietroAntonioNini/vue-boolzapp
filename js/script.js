@@ -35,17 +35,17 @@ createApp({
                     visible: true,
                     messages: [
                         {
-                            date: '20/03/2020 16:30:00',
+                            date: '20/03/2020 11:30:00',
                             message: 'Ciao come stai?',
                             status: 'sent'
                         },
                         {
-                            date: '20/03/2020 16:30:55',
+                            date: '20/03/2020 14:30:55',
                             message: 'Bene grazie! Stasera ci vediamo?',
                             status: 'received'
                         },
                         {
-                            date: '20/03/2020 16:35:00',
+                            date: '20/03/2020 18:35:00',
                             message: 'Mi piacerebbe ma devo andare a fare la spesa.',
                             status: 'sent'
                         }
@@ -96,12 +96,12 @@ createApp({
                     visible: true,
                     messages: [
                         {
-                            date: '10/01/2020 15:30:55',
+                            date: '10/01/2020 09:30:55',
                             message: 'Ricordati di chiamare la nonna',
                             status: 'sent'
                         },
                         {
-                            date: '10/01/2020 15:50:00',
+                            date: '10/01/2020 12:50:00',
                             message: 'Va bene, stasera la sento',
                             status: 'received'
                         }
@@ -140,7 +140,7 @@ createApp({
                             status: 'sent'
                         },
                         {
-                            date: '10/01/2020 15:50:00',
+                            date: '10/01/2020 17:50:00',
                             message: 'Grazie per avermelo ricordato, le scrivo subito!',
                             status: 'received'
                         }
@@ -173,10 +173,15 @@ createApp({
         }
     },
     methods: {
-
         selectChat(index) {
             this.activeChat = index;
         },
+
+        extractTime(dateString) {
+            // Estrae le prime 5 lettere (es. "15:30")
+            return dateString.substring(11, 16);
+        },
+
     },
 
 }).mount('#app');
