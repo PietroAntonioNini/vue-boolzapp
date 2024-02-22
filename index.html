@@ -84,8 +84,10 @@
             </div>
 
             <div class="mid-body">
-                <div class="message" v-for="(user, index) in contacts" v-show="index == activeChat">
-                    <span></span>
+                <div class="message">
+                    <span v-for="(message, index) in contacts[activeChat].messages">
+                        {{ message.message }}
+                    </span>
                 </div>
             </div>
 
