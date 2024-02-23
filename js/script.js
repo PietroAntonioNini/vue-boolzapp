@@ -9,6 +9,9 @@ createApp({
 
             //messaggio nel campo di input
             newMessageText: '',
+
+            //memorizzo un indice della chat attiva (-1 indica che non c'è una chat atttiva)
+            lastActiveChat: -1,
             
 
             contacts: [
@@ -181,6 +184,7 @@ createApp({
         //funzione per selezionare la chat attiva
         selectChat(index) {
             this.activeChat = index;
+            this.lastActiveChat = index;
         },
 
         //funzione per prendere solo l'ora escludendo data e secondi dall'array
@@ -222,12 +226,17 @@ createApp({
             //svuota il campo di input(newMessage)
             this.newMessageText = '';
 
+            //memorizzo l'indice della chat attiva
+            const activeChatAtMessageTime = this.activeChat;
+
             //risposta automatica dopo 1 secondo
-            setTimeout(this.responseMessage, 1000);
+            setTimeout(() => {
+                this.responseMessage(activeChatAtMessageTime);
+            }, 1000);
         },
 
         //funzione per la risposta
-        responseMessage() {
+        responseMessage(activeChat) {
 
             //creo un nuovo messaggio con testo e data
             const autoResponse = {
@@ -237,9 +246,7 @@ createApp({
             };
           
             //aggiungo il messaggio all'array di messaggi della chat attiva
-            this.contacts[this.activeChat].messages.push(autoResponse);
+            this.contacts[activeChat].messages.push(autoResponse);
         }
-
-    },
-
+    }
 }).mount('#app');
