@@ -20,7 +20,10 @@
     
     <div id="app" class="container">
 
+        <!-- parte laterale dei contatti e altre info -->
         <div class="chat-sidebar">
+
+            <!-- parte in alto con il tuo profilo, le notifiche e il filtro delle chat -->
             <div class="side-header">
                 <div class="top-head">
                     <div class="avatar">
@@ -52,6 +55,7 @@
                 </div>
             </div>
 
+            <!-- lista delle chat attive -->
             <div class="side-body">
                 <ul>
                     <li v-for="(user, index) in contacts" @click="selectChat(index)" :class="index == activeChat ? `active` : `` ">
@@ -67,7 +71,10 @@
             </div>
         </div>
 
+        <!-- Corpo principale della web app -->
         <div class="chat-body" v-for="(user, index) in contacts" v-show="index == activeChat">
+            
+            <!-- info dell contatto con cui stai chattando -->
             <div class="top-body">
                 <div class="avatar">
                     <img 
@@ -87,6 +94,7 @@
                 </div>
             </div>
 
+            <!-- corpo della chat -->
             <div class="mid-body">
                 <div class="message">
                     <div v-for="(message, index) in contacts[activeChat].messages">
@@ -98,10 +106,12 @@
                 </div>
             </div>
 
+            <!-- campo dove inserire i messaggi -->
             <div class="end-body">
                 <i class="fa-regular fa-face-smile"></i>
-                <input type="text" class="form-control border-0 fs-6" placeholder="Scrivi un messaggio">
-                <i class="fa-solid fa-microphone"></i>
+                <input type="text" class="form-control border-0 fs-6" placeholder="Scrivi un messaggio" v-model="newMessageText">
+                <i class="fa-solid fa-paper-plane" @click="sendMessage()" v-show="newMessageText"></i>
+                <i class="fa-solid fa-microphone" v-show="!newMessageText"></i>
             </div>
         </div>
     </div>

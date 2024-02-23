@@ -4,7 +4,11 @@ createApp({
     data() {
         return {
 
+            //indice della chat attiva
             activeChat: 0,
+
+            //messaggio nel campo di input
+            newMessageText: '',
 
             contacts: [
                 {
@@ -197,6 +201,26 @@ createApp({
             //restituisco l'ultimo messaggio della chat
             return messages[messages.length - 1].message;
         },
+
+        //funzione per inviare un messaggio nella chat
+        sendMessage() {
+
+            //data corrente
+            const timestamp = new Date().toLocaleString();
+          
+            //crea un nuovo messaggio con testo e data
+            const newMessage = {
+              date: timestamp,
+              message: this.newMessageText,
+              status: 'sent',
+            };
+          
+            //inserisci il nuovo messaggio nell'array, precisamente nell'oggetto attivo
+            this.contacts[this.activeChat].messages.push(newMessage);
+          
+            //svuota il campo di input(newMessage)
+            this.newMessageText = '';
+        }
 
     },
 
