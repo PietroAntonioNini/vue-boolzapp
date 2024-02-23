@@ -222,13 +222,13 @@ body::after {
 
 /* stile dei messaggi mandati da noi */
 .mid-body .message .message-sent {
-    min-width: 270px;
-    max-width: 300px;
+    min-width: 200px;
+    max-width: 250px;
     align-self: flex-end;
     position: relative;
 
     margin-bottom: 10px;
-    padding: 10px 40px 10px 10px ;
+    padding: 10px 30px 10px 10px ;
 
     border-radius: 8px;
     background-color: #D5F9BA;
@@ -236,17 +236,43 @@ body::after {
 
 /* stile dei messaggi ricevuti*/
 .mid-body .message .message-received {
-    min-width: 270px;
-    max-width: 300px;
+    min-width: 200px;
+    max-width: 250px;
     align-self: flex-start;
     position: relative;
 
     margin-bottom: 10px;
-    padding: 10px 40px 10px 10px ;
+    padding: 10px 30px 10px 10px ;
 
     border-radius: 8px;
     background-color: #FFFFFF;
 }
+
+/*creo la "pinna" per i messaggi inviati */
+.message-sent:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    margin-left: -5px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #D5F9BA transparent;
+}
+
+/*creo la "pinna" per i messaggi ricevuti */
+.message-received:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -5px;
+    margin-left: -5px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #FFFFFF transparent;
+}
+
+
 
 /* ora dei messaggi */
 .time {
