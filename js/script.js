@@ -12,6 +12,8 @@ createApp({
 
             //memorizzo un indice della chat attiva (-1 indica che non c'è una chat atttiva)
             lastActiveChat: -1,
+
+            selectedMessage: null,
             
 
             contacts: [
@@ -175,7 +177,29 @@ createApp({
                             status: 'received'
                         }
                     ],
-                }
+                },
+                {
+                    name: 'Luca',
+                    avatar: './img/avatar_3.jpg',
+                    visible: true,
+                    messages: [
+                        {
+                            date: '10/02/2023 18:30:55',
+                            message: 'Ciao, è tanto che non usciamo insieme, andiamo a mangiare una pizza stasera?',
+                            status: 'received'
+                        },
+                        {
+                            date: '10/02/2023 19:50:00',
+                            message: 'Scusa ma sto andando al ristorante ora con la mia fidanzata, se vuoi domani possiamo vederci per colazione e fare due chiacchiere',
+                            status: 'sent'
+                        },
+                        {
+                            date: '10/02/2023 22:51:00',
+                            message: 'Nessun problema, a domani allora!',
+                            status: 'received'
+                        }
+                    ],
+                },
             ]
             
         }
@@ -247,6 +271,20 @@ createApp({
           
             //aggiungo il messaggio all'array di messaggi della chat attiva
             this.contacts[activeChat].messages.push(autoResponse);
-        }
+        },
+
+        openContextMenu(event, message) {
+            event.preventDefault();
+            this.selectedMessage = message;
+        },
+        
+        deleteMessage(message) {
+            const index = this.contacts[this.activeChat].messages.indexOf(message);
+
+            if (index !== -1) {
+                this.contacts[this.activeChat].messages.splice(index, 1);
+            }
+            this.selectedMessage = null; // Reset selected message
+        },
     }
 }).mount('#app');

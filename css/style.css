@@ -64,6 +64,7 @@ body::after {
 .side-header {
     display: flex;
     flex-direction: column;
+    height: 190px;
 }
 
 /* parte alta della sidebar (Avatar) */
@@ -135,6 +136,11 @@ body::after {
 
 
 /* sidebar body */
+.side-body {
+    height: calc(100% - 190px);
+    overflow-y: auto;
+}
+
 .side-body ul{
     padding: 0;
     list-style-type: none;
