@@ -9,6 +9,7 @@ createApp({
 
             //messaggio nel campo di input
             newMessageText: '',
+            
 
             contacts: [
                 {
@@ -220,6 +221,23 @@ createApp({
           
             //svuota il campo di input(newMessage)
             this.newMessageText = '';
+
+            //risposta automatica dopo 1 secondo
+            setTimeout(this.responseMessage, 1000);
+        },
+
+        //funzione per la risposta
+        responseMessage() {
+
+            //creo un nuovo messaggio con testo e data
+            const autoResponse = {
+              date: new Date().toLocaleString(),
+              message: "Ok!",
+              status: "received",
+            };
+          
+            //aggiungo il messaggio all'array di messaggi della chat attiva
+            this.contacts[this.activeChat].messages.push(autoResponse);
         }
 
     },

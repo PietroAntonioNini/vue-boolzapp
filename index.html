@@ -109,7 +109,7 @@
             <!-- campo dove inserire i messaggi -->
             <div class="end-body">
                 <i class="fa-regular fa-face-smile"></i>
-                <input type="text" class="form-control border-0 fs-6" placeholder="Scrivi un messaggio" v-model="newMessageText">
+                <input type="text" class="form-control border-0 fs-6" placeholder="Scrivi un messaggio" v-model="newMessageText" @keyup.enter="sendMessage()">
                 <i class="fa-solid fa-paper-plane" @click="sendMessage()" v-show="newMessageText"></i>
                 <i class="fa-solid fa-microphone" v-show="!newMessageText"></i>
             </div>
