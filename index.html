@@ -106,8 +106,8 @@
             <div class="mid-body" @click="closeDropdown">
                 <div class="message">
                     <div v-for="(message, index) in contacts[activeChat].messages">
-                        <span :class="{ 'message-sent': message.status === 'sent', 'message-received': message.status === 'received'}" @contextmenu.prevent="openContextMenu($event, message)">
-                            <div class="message-body">
+                        <span :class="{ 'message-sent': message.status === 'sent', 'message-received': message.status === 'received'}">
+                            <div class="message-body" @contextmenu.prevent="openContextMenu($event, message)">
                                 {{ message.message }}
                                 <span class="time">{{ this.extractTime(message.date) }}</span>
                             </div>

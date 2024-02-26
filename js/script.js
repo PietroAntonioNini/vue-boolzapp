@@ -352,18 +352,46 @@ createApp({
         
         //funzione per eliminare un messaggio
         deleteMessage(message) {
-            const index = this.contacts[this.activeChat].messages.indexOf(message);
-
-            if (index !== -1) {
-                this.contacts[this.activeChat].messages.splice(index, 1);
+            const chat = this.contacts[this.activeChat];
+            const messageIndex = chat.messages.findIndex(msg => msg === message);
+          
+            if (messageIndex !== -1) {
+                chat.messages.splice(messageIndex, 1);
+                this.selectedMessage = null;
             }
-            this.selectedMessage = null;
         },
 
-        openChatOptions() {
+        //funzione per aprire il dropdown menu per eliminare l'intera chat
+        openChatOptions(event) {
+            //inverto lo stato di showChatOptions
             this.showChatOptions = !this.showChatOptions;
+      
+            if (this.showChatOptions) {
+              //aggiungo un listener per l'evento di click al documento
+              document.addEventListener('click', this.closeChatOptionsOnClickOutside);
+
+            } else {
+              //rimuovo il listener quando il dropdown viene chiuso
+              document.removeEventListener('click', this.closeChatOptionsOnClickOutside);
+            }
+      
+            //fermo la propagazione dell'evento per evitare che il dropdown si chiuda immediatamente
+            event.stopPropagation();
+        },
+
+        //funzione per chiudere il dropdown menu per eliminare l'intera chat
+        closeChatOptionsOnClickOutside(event) {
+            const dropdown = document.querySelector('.dropdown-chat');
+            const dropdownToggle = document.querySelector('.fa-ellipsis-vertical');
+
+            //verifico se l'evento di click si verifica fuori dal dropdown e dal suo trigger
+            if (dropdown && this.showChatOptions && !dropdown.contains(event.target) && !dropdownToggle.contains(event.target)) {
+                this.showChatOptions = false;
+                document.removeEventListener('click', this.closeChatOptionsOnClickOutside);
+            }
         },
     
+        //funzione per eliminare l'intera chat
         deleteChat() {
             //rimuovo la chat corrente dall'array contacts
             this.contacts.splice(this.activeChat, 1);
@@ -373,6 +401,9 @@ createApp({
     
             //imposto l'activeChat a -1 per indicare che non c'è una chat attiva
             this.activeChat = 0;
+             
+            //rimuovo l'ascoltatore di eventi se è ancora presente
+            document.removeEventListener('click', this.closeChatOptionsOnClickOutside);
         },
     },
     computed : {
