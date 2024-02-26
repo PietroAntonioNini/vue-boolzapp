@@ -90,7 +90,14 @@
                 <div class="icons">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <i class="fa-solid fa-paperclip"></i>
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <i class="fa-solid fa-ellipsis-vertical" @click="openChatOptions"></i>
+                </div>
+            </div>
+
+            <!-- Menu a tendina chat-->
+            <div v-if="showChatOptions" class="dropdown-chat">
+                <div class="dropdown-content">
+                    <p @click="deleteChat">Elimina chat</p>
                 </div>
             </div>
 
@@ -105,7 +112,7 @@
                             </div>
 
                             <!-- Menu a tendina -->
-                            <div class="dropdown" v-if="message === selectedMessage">
+                            <div class="dropdown-message" v-if="message === selectedMessage">
                                 <div class="dropdown-content">
                                     <p @click="deleteMessage(message)">Elimina messaggio</p>
                                 </div>

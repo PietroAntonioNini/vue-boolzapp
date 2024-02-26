@@ -13,8 +13,13 @@ createApp({
             //memorizzo un indice della chat attiva (-1 indica che non c'è una chat atttiva)
             lastActiveChat: -1,
 
+            //booleano per il menu di opzioni della chat
+            showChatOptions: false,
+
+            //indice del messaggio selezionato, necessario per il menu a tendina nel messaggio
             selectedMessage: null,
 
+            //indice per filtrare le chat nella sidebar
             searchQuery: '',
 
             contacts: [
@@ -297,6 +302,21 @@ createApp({
                 this.contacts[this.activeChat].messages.splice(index, 1);
             }
             this.selectedMessage = null;
+        },
+
+        openChatOptions() {
+            this.showChatOptions = !this.showChatOptions;
+        },
+    
+        deleteChat() {
+            //rimuovo la chat corrente dall'array contacts
+            this.contacts.splice(this.activeChat, 1);
+    
+            //chiudo il menu a tendina dopo l'eliminazione della chat
+            this.showChatOptions = false;
+    
+            //imposto l'activeChat a -1 per indicare che non c'è una chat attiva
+            this.activeChat = 0;
         },
     },
     computed : {

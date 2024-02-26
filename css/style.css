@@ -187,6 +187,7 @@ body::after {
     justify-content: space-between;
     height: 100%;
     flex-grow: 1;
+    position: relative;
 }
 
 
@@ -207,6 +208,14 @@ body::after {
 
 .top-body .avatar {
     display: flex;
+}
+
+/* menu a tendina chat */
+
+.chat-body .dropdown-chat {
+    position: absolute;
+    right: -40px;
+    top: 55px;
 }
 
 
@@ -296,7 +305,7 @@ body::after {
 }
 
 /* dropdown menu di elimina messaggio  */
-.dropdown{
+.dropdown-message{
     width: 150px;
     position: absolute;
     bottom: -30px;
