@@ -50,7 +50,7 @@
                 <div class="end-head">
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-                        <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat">
+                        <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" v-model="searchQuery">
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
             <!-- lista delle chat attive -->
             <div class="side-body">
                 <ul>
-                    <li v-for="(user, index) in contacts" @click="selectChat(index)" :class="index == activeChat ? `active` : `` ">
+                    <li v-for="(user, index) in filteredContacts" @click="selectChat(index)" :class="index == activeChat ? `active` : `` ">
                         <img :src="user.avatar" :alt="user.name">
 
                         <div class="chat-info">

@@ -14,7 +14,8 @@ createApp({
             lastActiveChat: -1,
 
             selectedMessage: null,
-            
+
+            searchQuery: '',
 
             contacts: [
                 {
@@ -205,6 +206,7 @@ createApp({
         }
     },
     methods: {
+
         //funzione per selezionare la chat attiva
         selectChat(index) {
             this.activeChat = index;
@@ -213,7 +215,8 @@ createApp({
 
         //funzione per prendere solo l'ora escludendo data e secondi dall'array
         extractTime(dateString) {
-            // Estrae le prime 5 lettere (es. "15:30")
+
+            //estraggo le prime 5 lettere (es. "15:30")
             return dateString.substring(11, 16);
         },
 
@@ -237,17 +240,17 @@ createApp({
             //data corrente
             const timestamp = new Date().toLocaleString();
           
-            //crea un nuovo messaggio con testo e data
+            //creo un nuovo messaggio con testo e data
             const newMessage = {
               date: timestamp,
               message: this.newMessageText,
               status: 'sent',
             };
           
-            //inserisci il nuovo messaggio nell'array, precisamente nell'oggetto attivo
+            //inserisco il nuovo messaggio nell'array, precisamente nell'oggetto attivo
             this.contacts[this.activeChat].messages.push(newMessage);
           
-            //svuota il campo di input(newMessage)
+            //svuoto il campo di input(newMessage)
             this.newMessageText = '';
 
             //memorizzo l'indice della chat attiva
@@ -293,7 +296,20 @@ createApp({
             if (index !== -1) {
                 this.contacts[this.activeChat].messages.splice(index, 1);
             }
-            this.selectedMessage = null; // Reset selected message
+            this.selectedMessage = null;
         },
+    },
+    computed : {
+        //filtro lista chat nella sidebar
+        filteredContacts() {
+            if (this.searchQuery) {
+                return this.contacts.filter(contact => 
+                    contact.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+                );
+            } else {
+                return this.contacts;
+            }
+        },
+
     }
 }).mount('#app');
