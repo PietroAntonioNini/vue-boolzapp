@@ -273,11 +273,20 @@ createApp({
             this.contacts[activeChat].messages.push(autoResponse);
         },
 
+        //funzione per aprire il menu a tendina
         openContextMenu(event, message) {
             event.preventDefault();
             this.selectedMessage = message;
         },
+
+        //funzione per chiudere il menu a tendina
+        closeDropdown() {
+            if (this.selectedMessage) {
+              this.selectedMessage = null;
+            }
+        },
         
+        //funzione per eliminare un messaggio
         deleteMessage(message) {
             const index = this.contacts[this.activeChat].messages.indexOf(message);
 

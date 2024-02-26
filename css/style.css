@@ -220,17 +220,26 @@ body::after {
     background-image: url(../img/mine.jpg);
 }
 
-.mid-body .message div {
+.mid-body .message .message-sent {
     display: flex;
     flex-direction: column;
+    align-items: end;
     flex-wrap: wrap;
+    position: relative;
+}
+
+.mid-body .message .message-received {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    position: relative;
 }
 
 /* stile dei messaggi mandati da noi */
-.mid-body .message .message-sent {
+.mid-body .message .message-sent .message-body {
     min-width: 200px;
     max-width: 250px;
-    align-self: flex-end;
     position: relative;
 
     margin-bottom: 10px;
@@ -241,10 +250,9 @@ body::after {
 }
 
 /* stile dei messaggi ricevuti*/
-.mid-body .message .message-received {
+.mid-body .message .message-received .message-body {
     min-width: 200px;
     max-width: 250px;
-    align-self: flex-start;
     position: relative;
 
     margin-bottom: 10px;
@@ -255,7 +263,7 @@ body::after {
 }
 
 /*creo la "pinna" per i messaggi inviati */
-.message-sent:after {
+.message-sent .message-body:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -267,7 +275,7 @@ body::after {
 }
 
 /*creo la "pinna" per i messaggi ricevuti */
-.message-received:after {
+.message-received .message-body:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -277,9 +285,6 @@ body::after {
     border-style: solid;
     border-color: transparent transparent #FFFFFF transparent;
 }
-
-
-
 /* ora dei messaggi */
 .time {
     position: absolute;
@@ -288,6 +293,31 @@ body::after {
 
     font-size: 8px;
     color: #B1B1B1;
+}
+
+/* dropdown menu di elimina messaggio  */
+.dropdown{
+    width: 150px;
+    position: absolute;
+    bottom: -30px;
+}
+
+.dropdown-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 10px;
+    font-size: 14px;
+
+    border: 0.5px solid #6A7376;
+    border-radius: 10px;
+    
+    background-color: #FFFFFF;
+}
+
+.dropdown-content p {
+    margin: 0;
 }
 
 

@@ -95,21 +95,22 @@
             </div>
 
             <!-- corpo della chat -->
-            <div class="mid-body">
+            <div class="mid-body" @click="closeDropdown">
                 <div class="message">
                     <div v-for="(message, index) in contacts[activeChat].messages">
                         <span :class="{ 'message-sent': message.status === 'sent', 'message-received': message.status === 'received'}" @contextmenu.prevent="openContextMenu($event, message)">
-                            {{ message.message }}
-                            <span class="time">{{ this.extractTime(message.date) }}</span>
-                        </span>
-
-                        <!-- Menu a tendina -->
-                        <div class="dropdown" v-if="message === selectedMessage">
-                            <button class="dropdown-button">...</button>
-                            <div class="dropdown-content">
-                                <p @click="deleteMessage(message)">Elimina messaggio</p>
+                            <div class="message-body">
+                                {{ message.message }}
+                                <span class="time">{{ this.extractTime(message.date) }}</span>
                             </div>
-                        </div>
+
+                            <!-- Menu a tendina -->
+                            <div class="dropdown" v-if="message === selectedMessage">
+                                <div class="dropdown-content">
+                                    <p @click="deleteMessage(message)">Elimina messaggio</p>
+                                </div>
+                            </div>
+                        </span>
                     </div>
                 </div>
             </div>
