@@ -83,7 +83,8 @@
                     >
                     <div class="chat-info">
                         <span class="chat-username"> {{ user.name }}</span>
-                        <span class="last-access"> Ultimo accesso {{ this.extractTime(contacts[activeChat].messages[contacts[activeChat].messages.length - 1].date) }} </span>
+                        <span class="last-access" v-if="!isTyping"> Ultimo accesso {{ this.extractTime(contacts[activeChat].messages[contacts[activeChat].messages.length - 1].date) }} </span>
+                        <span class="last-access" v-if="isTyping">Sta scrivendo...</span>
                     </div>
                 </div>
 
@@ -99,7 +100,7 @@
                 <div class="dropdown-content">
                     <p @click="deleteChat">Elimina chat</p>
                 </div>
-            </div>
+            </div>  
 
             <!-- corpo della chat -->
             <div class="mid-body" @click="closeDropdown">

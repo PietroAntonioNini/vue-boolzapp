@@ -22,6 +22,9 @@ createApp({
             //indice per filtrare le chat nella sidebar
             searchQuery: '',
 
+            //controllo se l'utente sta digitando qualcosa
+            isTyping: false,
+
             contacts: [
                 {
                     name: 'Michele',
@@ -261,6 +264,9 @@ createApp({
             //memorizzo l'indice della chat attiva
             const activeChatAtMessageTime = this.activeChat;
 
+            //imposto lo stato "Sta scrivendo..." prima di inviare il messaggio
+            this.isTyping = true;
+
             //risposta automatica dopo 1 secondo
             setTimeout(() => {
                 this.responseMessage(activeChatAtMessageTime);
@@ -279,6 +285,11 @@ createApp({
           
             //aggiungo il messaggio all'array di messaggi della chat attiva
             this.contacts[activeChat].messages.push(autoResponse);
+
+            //ripristino lo stato "Ultimo accesso" dopo aver inviato la risposta
+            setTimeout(() => {
+                this.isTyping = false;
+            }, 500);
         },
 
         //funzione per aprire il menu a tendina
