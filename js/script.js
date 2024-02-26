@@ -258,8 +258,20 @@ createApp({
 
         //funzione per selezionare la chat attiva
         selectChat(index) {
-            this.activeChat = index;
-            this.lastActiveChat = index;
+            //memorizzo l'indice della chat attiva
+            this.activeChat = 0;
+
+            //memorizzo temporaneamente la chat selezionata
+            const selectedChat = this.contacts[index];
+            
+            //rimuovo la chat dalla posizione corrente nell'array
+            this.contacts.splice(index, 1);
+            
+            //inserisco la chat all'inizio dell'array
+            this.contacts.unshift(selectedChat);
+
+            //aggiorno l'indice dell'ultima chat attiva
+            this.lastActiveChat = 0;
         },
 
         //funzione per prendere solo l'ora escludendo data e secondi dall'array
