@@ -107,9 +107,10 @@
                 <div class="message">
                     <div v-for="(message, index) in contacts[activeChat].messages">
                         <span :class="{ 'message-sent': message.status === 'sent', 'message-received': message.status === 'received'}">
-                            <div class="message-body" @contextmenu.prevent="openContextMenu($event, message)">
+                            <div class="message-body">
                                 {{ message.message }}
                                 <span class="time">{{ this.extractTime(message.date) }}</span>
+                                <i class="fa-solid fa-chevron-down" @click="openContextMessageMenu($event, message)"></i>
                             </div>
 
                             <!-- Menu a tendina -->

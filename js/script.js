@@ -338,15 +338,36 @@ createApp({
         },
 
         //funzione per aprire il menu a tendina
-        openContextMenu(event, message) {
-            event.preventDefault();
-            this.selectedMessage = message;
+        openContextMessageMenu(event, message) {
+
+            //impedisco la propagazione dell'evento per evitare la chiusura immediata del dropdown
+            event.stopPropagation();
+
+            //verifico se il messaggio selezionato è lo stesso della volta precedente
+            if (this.selectedMessage === message) {
+                //se è lo stesso, chiudi il dropdown
+                this.selectedMessage = null;
+
+            } else {
+                //se è diverso, apri il dropdown
+                this.selectedMessage = message;
+
+                //aggiungo un listener per l'evento di click al documento per la chiusura
+                document.addEventListener('click', this.closeDropdownOnClickOutside);
+            }
         },
 
         //funzione per chiudere il menu a tendina
-        closeDropdown() {
-            if (this.selectedMessage) {
-              this.selectedMessage = null;
+        closeDropdownOnClickOutside(event) {
+            const dropdown = document.querySelector('.dropdown-message');
+
+            //verifico se l'evento di click si verifica fuori dal dropdown
+            if (dropdown && this.selectedMessage && !dropdown.contains(event.target)) {
+                //chiudo il dropdown
+                this.selectedMessage = null;
+
+                //rimuovo il listener quando il dropdown viene chiuso
+                document.removeEventListener('click', this.closeDropdownOnClickOutside);
             }
         },
         
