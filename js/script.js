@@ -209,7 +209,48 @@ createApp({
                         }
                     ],
                 },
-            ]
+            ],
+
+            checcoResponses: [
+                "Angela, amore mio, io e te sempre insieme sia nella brutta che nella cattiva sorte.",
+                "Ecco, questo è il Sud! Questa è l'obertà!",
+                "Mi dispiace per quello che ho detto prima, il fatto del treno, il fatto che ho detto che è salito il ri… l’uomo… come si dice la razza vostra in italiano?",
+                "Figlio mio… Non voglio che tu pensi che questa è la felicità… Guarda laggiù… Quella è la felicità…",
+                "Vai a dormire che poi domani ti sblocco!",
+                "Scusi, della 'Che Guevara' c’avete anche i borselli?",
+                "Non puoi scancellare sei anni d’amore con il fotoshock.",
+                "Se ce l’ho fatta io… ce la puoi farcela anche tu!",
+                "Ehi, Checco, ogni volta che dedichi questa canzone ad una ragazza lei ti ammolla.",
+                "Qualche gradazione zio, cioè non dà fastidio, capito?",
+                "Ho avuto altre storie, ma erano 4ª coppa c, 5ª coppa b, anche una 6ª!",
+                "Ah i debiti da saldare… domani ti mando il fabbro.",
+                "Don’t play in house of the player!",
+                "Aah Nicolò, le parolacce te le devo prima autorizzare io!",
+                "Dove siamo? Migrante, mi dia la posizione",
+                "Emigro in Liechtenstein, dove non c’è il segreto bancario",
+                "L'Italia è un paese bellissimo, pieno di storia e di cultura. Peccato che ci vivono gli italiani",
+                "Il problema dell'Italia è che è un paese pieno di furbi. E io sono il più furbo di tutti",
+                "Non è vero che l'Italia è un paese in declino. È solo che sta scendendo una curva molto ripida",
+                "Le donne sono come le lavatrici: se non le capisci, ti lasciano sempre con i panni sporchi",
+                "Se il cervello fosse tasse, molti italiani sarebbero evasori seriali!",
+                "Le relazioni sono come le autostrade italiane, piene di buche e deviazioni impreviste!",
+                "La politica italiana è come un film di fantascienza: piena di alieni che cercano di rapire i nostri soldi!",
+                "Se la pazienza fosse un superpotere, gli italiani sarebbero tutti supereroi in incognito!",
+                "La burocrazia italiana è come un labirinto senza uscita, solo che qui il Minotauro è l'inefficienza!",
+                "Gli italiani e la puntualità sono come l'olio e l'acqua: si scontrano sempre, ma nessuno vuole ammetterlo!",
+                "Se il sarcasmo fosse oro, l'Italia sarebbe il paese più ricco del mondo!",
+                "L'amore in Italia è come una partita a scacchi: ci sono regole complesse, mosse imprevedibili e spesso finisce in stallo!",
+                "Gli italiani e la tecnologia sono come gatti e acqua: una combinazione che spesso porta a situazioni disastrose!",
+                "La dieta mediterranea? Più che un regime alimentare, sembra un test di resistenza alla tentazione per gli italiani!",
+                "In Italia, l'aperitivo è sacro: è l'unico momento in cui l'italiano medio è puntuale, anzi, in anticipo!",
+                "L'italiano quando guida non usa le frecce, usa la fede: si affida alla Madonna e spera nel meglio!",
+                "In Italia, l'unico sport nazionale più popolare del calcio è il salto delle tasse!",
+                "L'italiano medio tratta la palestra come la politica: si iscrive con entusiasmo e poi non si presenta mai!",
+                "La puntualità in Italia è come un unicorno, tutti ne parlano ma nessuno l'ha mai vista!",
+                "In Italia, la dieta mediterranea è come un semaforo: verde per l'olio d'oliva, giallo per la pasta e rosso... beh, rosso non lo usiamo mai!",
+                "Gli italiani sono così affezionati alla mamma che anche a 40 anni, se si perdono al supermercato, chiamano 'Mammaaa!'",
+                "Il segreto della longevità italiana? Evitare le riunioni di condominio, più pericolose di una dieta a base di burro!",
+            ],
             
         }
     },
@@ -276,15 +317,19 @@ createApp({
         //funzione per la risposta
         responseMessage(activeChat) {
 
-            //creo un nuovo messaggio con testo e data
-            const autoResponse = {
-              date: new Date().toLocaleString(),
-              message: "Ok!",
-              status: "received",
+            //selezione casuale di una risposta dai Griffin
+            const randomIndex = Math.floor(Math.random() * this.checcoResponses.length);
+            const autoResponse = this.checcoResponses[randomIndex];
+
+            //aggiungo la risposta al contatto corrente
+            const newAutoResponse = {
+                date: new Date().toLocaleString(),
+                message: autoResponse,
+                status: "received",
             };
           
             //aggiungo il messaggio all'array di messaggi della chat attiva
-            this.contacts[activeChat].messages.push(autoResponse);
+            this.contacts[activeChat].messages.push(newAutoResponse);
 
             //ripristino lo stato "Ultimo accesso" dopo aver inviato la risposta
             setTimeout(() => {
