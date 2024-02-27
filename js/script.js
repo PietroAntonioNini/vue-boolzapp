@@ -308,6 +308,14 @@ createApp({
         //funzione per inviare un messaggio nella chat
         sendMessage() {
 
+            //rimuovo gli spazi bianchi all'inizio e alla fine del messaggio
+            const trimmedMessage = this.newMessageText.trim();
+
+            //se il messaggio è vuoto, interrompo l'esecuzione del metodo
+            if (!trimmedMessage) {
+                return;
+            }
+
             //data corrente
             const timestamp = new Date().toLocaleString();
           
