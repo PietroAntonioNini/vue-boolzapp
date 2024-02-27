@@ -269,9 +269,6 @@ createApp({
             
             //inserisco la chat all'inizio dell'array
             this.contacts.unshift(selectedChat);
-
-            //aggiorno l'indice dell'ultima chat attiva
-            this.lastActiveChat = 0;
         },
 
         //funzione per prendere solo l'ora escludendo data e secondi dall'array
@@ -288,11 +285,16 @@ createApp({
         
             //se non ci sono messaggi inserisco una stringa vuota
             if (!messages || messages.length === 0) {
-              return "";
+                return {
+                    
+                    date: '',
+                    message: '',
+                    status: '',
+                };
             }
         
             //restituisco l'ultimo messaggio della chat
-            return messages[messages.length - 1].message;
+            return messages[messages.length - 1];
         },
 
         //funzione per inviare un messaggio nella chat

@@ -63,7 +63,8 @@
 
                         <div class="chat-info">
                             <span> {{ user.name }}</span>
-                            <span> {{ this.getLastMessage(user) }}</span>
+                            <span class="d-inline-block text-truncate li_info" style="max-width: 250px;" v-if="activeChat != index || !isTyping"> {{ getLastMessage(user).message }}</span>
+                            <span class="li_info" v-if="activeChat === index && isTyping">Sta scrivendo...</span>
                         </div>
 
                     </li>
@@ -83,7 +84,7 @@
                     >
                     <div class="chat-info">
                         <span class="chat-username"> {{ user.name }}</span>
-                        <span class="last-access" v-if="!isTyping"> Ultimo accesso {{ this.extractTime(contacts[activeChat].messages[contacts[activeChat].messages.length - 1].date) }} </span>
+                        <span class="last-access" v-if="!isTyping  && getLastMessage(user).message"> Ultimo accesso {{ this.extractTime(getLastMessage(user).date) }} </span>
                         <span class="last-access" v-if="isTyping">Sta scrivendo...</span>
                     </div>
                 </div>
