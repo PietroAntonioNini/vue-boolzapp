@@ -5,7 +5,7 @@ createApp({
         return {
 
             //indice della chat attiva
-            activeChat: 0,
+            activeChat: -1,
 
             //messaggio nel campo di input
             newMessageText: '',
@@ -296,11 +296,19 @@ createApp({
             //inserisco la chat all'inizio dell'array
             this.contacts.unshift(selectedChat);
 
-            //scroll automatico all'ultimo messaggio
+            //chiama lo scroll all'ultimo messaggio quando apro una chat
             this.$nextTick(() => {
-                const messages = document.querySelector('.mid-body');
-                if (messages) {
-                    messages.scrollTop = messages.scrollHeight;
+                this.scrollToLastMessage();
+            });
+        },
+
+        //scroll automatico all'ultimo messaggio
+        scrollToLastMessage() {
+            const elements = document.querySelectorAll('.mid-body, .mid-body-mobile');
+
+            elements.forEach(element => {
+                if (element) {
+                    element.scrollTop = element.scrollHeight;
                 }
             });
         },
@@ -518,6 +526,10 @@ createApp({
                 //rimuovo il listener quando il menu delle emoticon viene chiuso
                 document.removeEventListener('click', this.closeEmoticonMenuOnClickOutside);
             }
+        },
+
+        goBackMobile() {
+            this.activeChat = -1;
         },
     },
     computed : {

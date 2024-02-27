@@ -73,7 +73,7 @@
         </div>
 
         <!-- Corpo principale della web app -->
-        <div class="chat-body" v-for="(user, index) in contacts" v-show="index == activeChat">
+        <div class="chat-body" v-for="(user, index) in contacts" v-show="index == activeChat" v-if="activeChat != -1">
             
             <!-- info dell contatto con cui stai chattando -->
             <div class="top-body">
@@ -92,6 +92,126 @@
                 <div class="icons">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <i class="fa-solid fa-paperclip"></i>
+                    <i class="fa-solid fa-ellipsis-vertical" @click="openChatOptions"></i>
+                </div>
+            </div>
+
+            <!-- Menu a tendina chat-->
+            <div v-if="showChatOptions" class="dropdown-chat">
+                <div class="dropdown-content">
+                    <p @click="deleteChat">Elimina chat</p>
+                    <p @click="clearChat">Svuota chat</p>
+                </div>
+            </div>  
+
+            <!-- corpo della chat -->
+            <div class="mid-body" @click="closeDropdown">
+                <div class="message">
+                    <div v-for="(message, index) in contacts[activeChat].messages">
+                        <span :class="{ 'message-sent': message.status === 'sent', 'message-received': message.status === 'received'}">
+                            <div class="message-body">
+                                {{ message.message }}
+                                <span class="time">{{ this.extractTime(message.date) }}</span>
+                                <i class="fa-solid fa-chevron-down" @click="openContextMessageMenu($event, message)"></i>
+                            </div>
+
+                            <!-- Menu a tendina -->
+                            <div class="dropdown-message" v-if="message === selectedMessage">
+                                <div class="dropdown-content">
+                                    <p @click="deleteMessage(message)">Elimina messaggio</p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- campo dove inserire i messaggi -->
+            <div class="end-body">
+                <i class="fa-regular fa-face-smile" @click="toggleEmoticonMenu"></i>
+                
+                <!-- emoticons menu -->
+                <div v-if="showEmoticonMenu" class="emoticon-menu">
+                    <span v-for="emoticon in emoticons" @click="insertEmoticon(emoticon)">{{ emoticon }}</span>
+                </div>
+
+                <input type="text" class="form-control border-0 fs-6" placeholder="Scrivi un messaggio" v-model="newMessageText" @keyup.enter="sendMessage()">
+                <i class="fa-solid fa-paper-plane" @click="sendMessage()" v-show="newMessageText"></i>
+                <i class="fa-solid fa-microphone" v-show="!newMessageText"></i>
+            </div>
+        </div>
+
+        <div class="welcome-page" v-if="activeChat == -1">
+            <span>seleziona una chat per iniziare a messaggiare</span>
+
+            <h1>Boolzap</h1>
+            <span>su</span>
+            <h2>Benvenuto</h2>
+        </div>
+
+        <!-- view Mobile -->
+
+        <div class="chat-sidebar-mobile" v-if="activeChat == -1">
+
+            <!-- parte in alto con il tuo profilo, le notifiche e il filtro delle chat -->
+            <div class="side-header">
+                <div class="top-head">
+                    <div class="avatar">
+                        <img src="./img/avatar_io.jpg" alt="Avatar Sonia">
+                        <span class="chat-username">Sofia</span>
+                    </div>
+    
+                    <div class="icons">
+                        <i class="fa-solid fa-circle-notch"></i>
+                        <i class="fa-solid fa-message"></i>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </div>
+                </div>
+
+                <div class="end-head">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" v-model="searchQuery">
+                    </div>
+                </div>
+            </div>
+
+            <!-- lista delle chat attive -->
+            <div class="side-body">
+                <ul>
+                    <li v-for="(user, index) in filteredContacts" @click="selectChat(index)" :class="index == activeChat ? `active` : `` ">
+                        <img :src="user.avatar" :alt="user.name">
+
+                        <div class="chat-info">
+                            <span> {{ user.name }}</span>
+                            <span class="d-inline-block text-truncate li_info" style="max-width: 250px;" v-if="activeChat != index || !isTyping"> {{ getLastMessage(user).message }}</span>
+                            <span class="li_info" v-if="activeChat === index && isTyping">Sta scrivendo...</span>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Corpo principale della web app -->
+        <div class="chat-body-mobile" v-for="(user, index) in contacts" v-show="index == activeChat" v-if="activeChat != -1">
+            
+            <!-- info dell contatto con cui stai chattando -->
+            <div class="top-body">
+                <i class="fa-solid fa-left-long" @click="goBackMobile"></i>
+                <div class="avatar">
+                    <img 
+                        :src="user.avatar" 
+                        :alt="user.name"
+                    >
+                    <div class="chat-info">
+                        <span class="chat-username"> {{ user.name }}</span>
+                        <span class="last-access" v-if="!isTyping  && getLastMessage(user).message"> Ultimo accesso {{ this.extractTime(getLastMessage(user).date) }} </span>
+                        <span class="last-access" v-if="isTyping">Sta scrivendo...</span>
+                    </div>
+                </div>
+
+                <div class="icons">
                     <i class="fa-solid fa-ellipsis-vertical" @click="openChatOptions"></i>
                 </div>
             </div>
