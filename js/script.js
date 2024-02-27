@@ -25,6 +25,9 @@ createApp({
             //controllo se l'utente sta digitando qualcosa
             isTyping: false,
 
+            //booleano per mostare il menù delle emoticons
+            showEmoticonMenu: false,
+
             contacts: [
                 {
                     name: 'Michele',
@@ -251,6 +254,29 @@ createApp({
                 "Gli italiani sono così affezionati alla mamma che anche a 40 anni, se si perdono al supermercato, chiamano 'Mammaaa!'",
                 "Il segreto della longevità italiana? Evitare le riunioni di condominio, più pericolose di una dieta a base di burro!",
             ],
+
+            emoticons: [
+                '😊', '😂', '😍', '👍', '❤️', '😎', '😜', '😇', '😘', '🤔',
+                '😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇',
+                '😍', '🥰', '😘', '😗', '😙', '😚', '😋', '😛', '😜', '🤪',
+                '😎', '🤩', '😏', '😒', '😌', '😔', '😪', '🤤', '😴', '😷',
+                '🤒', '🤕', '🤢', '🤮', '🤧', '🥵', '🥶', '🥴', '😵', '🤯',
+                '🤠', '🥳', '😎', '🤓', '🧐', '😕', '😟', '🙁', '😮', '😯',
+                '😲', '😳', '🥺', '😦', '😧', '😨', '😰', '😥', '😢', '😭',
+                '😱', '😖', '😣', '😞', '😓', '😩', '😫', '😤', '😡', '😠',
+                '🤬', '😈', '👿', '💀', '☠️', '💩', '🤡', '👹', '👺', '👻',
+                '👽', '👾', '🤖', '😺', '😸', '😹', '😻', '😼', '😽', '🙀',
+                '😿', '😾', '👐', '🙌', '👏', '🙏', '🤝', '👍', '👎', '👊',
+                '✊', '🤛', '🤜', '🤞', '✌️', '🤘', '🤟', '👌', '👈', '👉',
+                '👆', '👇', '✋', '🤚', '🖐', '🖖', '👋', '🤙', '💪', '🦵',
+                '🦶', '👂', '👃', '🧠', '🦷', '🦴', '👀', '👁️', '👅', '👄',
+                '💋', '🩸', '💘', '❤️', '💓', '💔', '💕', '💖', '💗', '💙',
+                '💚', '💛', '💜', '🤎', '🖤', '🤍', '💯', '💢', '💥', '💫',
+                '💦', '💨', '🕳️', '💣', '💬', '🗨️', '🗯️', '💭', '💤', '💢',
+                '💼', '🔞', '🚫', '🚷', '🚯', '🚱', '🚳', '🚴‍♂️', '🚶‍♂️', '🏃‍♂️',
+                '👫', '👭', '👬', '💏', '💑', '👪', '🙍‍♂️', '🙍‍♀️', '🙎‍♂️', '🙎‍♀️',
+                '🙅‍♂️', '🙅‍♀️', '🙆‍♂️', '🙆‍♀️', '🙇‍♂️', '🙇‍♀️', '🤦‍♂️', '🤦‍♀️', '🤷‍♂️', '🤷‍♀️',
+            ],
             
         }
     },
@@ -460,6 +486,38 @@ createApp({
         //funzione per svuotare la chat dai messaggi
         clearChat() {
             this.contacts[this.activeChat].messages = [];
+        },
+
+        //funzione per mostrare il menu delle emoticons
+        toggleEmoticonMenu() {
+            this.showEmoticonMenu = !this.showEmoticonMenu;
+
+            if (this.showEmoticonMenu) {
+                //aggiungo un listener per l'evento di click al documento
+                document.addEventListener('click', this.closeEmoticonMenuOnClickOutside);
+            } else {
+                //rimuovo il listener quando il menu delle emoticon viene chiuso
+                document.removeEventListener('click', this.closeEmoticonMenuOnClickOutside);
+            }
+        },
+
+        //funzione per inserire un emoticons nel messaggio
+        insertEmoticon(emoticon) {
+            this.newMessageText += emoticon;
+        },
+
+        //funzione per chiudere il menu delle emoticon al click al di fuori di esso
+        closeEmoticonMenuOnClickOutside(event) {
+            const emoticonMenu = document.querySelector('.emoticon-menu');
+            const emoticonButton = document.querySelector('.fa-face-smile');
+
+            //verifico se l'evento di click si verifica fuori dal menu delle emoticon
+            if (emoticonMenu && this.showEmoticonMenu && !emoticonMenu.contains(event.target) && !emoticonButton.contains(event.target)) {
+                this.showEmoticonMenu = false;
+
+                //rimuovo il listener quando il menu delle emoticon viene chiuso
+                document.removeEventListener('click', this.closeEmoticonMenuOnClickOutside);
+            }
         },
     },
     computed : {
