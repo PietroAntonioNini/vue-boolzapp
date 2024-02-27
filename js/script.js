@@ -440,6 +440,11 @@ createApp({
             //rimuovo l'ascoltatore di eventi se è ancora presente
             document.removeEventListener('click', this.closeChatOptionsOnClickOutside);
         },
+
+        //funzione per svuotare la chat dai messaggi
+        clearChat() {
+            this.contacts[this.activeChat].messages = [];
+        },
     },
     computed : {
         //filtro lista chat nella sidebar
@@ -452,6 +457,5 @@ createApp({
                 return this.contacts;
             }
         },
-
     }
 }).mount('#app');
