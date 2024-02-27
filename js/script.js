@@ -269,6 +269,14 @@ createApp({
             
             //inserisco la chat all'inizio dell'array
             this.contacts.unshift(selectedChat);
+
+            //scroll automatico all'ultimo messaggio
+            this.$nextTick(() => {
+                const messages = document.querySelector('.mid-body');
+                if (messages) {
+                    messages.scrollTop = messages.scrollHeight;
+                }
+            });
         },
 
         //funzione per prendere solo l'ora escludendo data e secondi dall'array
